@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<button id="btn">確定</button>
+</body>
+<script src="/idoctor/js/jquery-2.1.1.js"></script>
+<script>
+$(document).ready(function() {
+	$('#btn').click(function(){
+		 var saveDataAry=[];
+        /*  var data1={"name":"test","password":"gz","age":1,"birthday":"2018-02-02 00:00:00","descation":"123"};
+         var data2={"name":"ququ","password":"gr","age":2,"birthday":"2018-02-02 00:00:00","descation":"123"}; */
+         var demo = new Object();
+         demo.name="test";
+         demo.password="gz";
+         demo.age=1;
+         demo.birthday="2018-02-02 00:00:00";
+         demo.descation="123";
+         var demo2 = new Object();
+         demo2.name="ququ";
+         demo2.password="gr";
+         demo2.age=1;
+         demo2.birthday="2018-02-03 00:00:00";
+         demo2.descation="123";
+
+         saveDataAry.push(demo);
+         saveDataAry.push(demo2);
+         alert(JSON.stringify(saveDataAry));
+		var url = '/idoctor/user/addlist';
+		$.ajax({
+			url : url,
+			data : {"userlist":JSON.stringify(saveDataAry)},
+			type : 'POST',
+			dataType : "text",
+			success : function(d) {
+				var rdata = JSON.parse(d);
+				alert(d);
+				if (rdata.status == 200) {
+					swal("成功!", "上传成功:)", "success");					
+				} else {
+					alert('请求失败');
+				}
+			}
+		});
+	});
+});
+
+</script>
+</html>

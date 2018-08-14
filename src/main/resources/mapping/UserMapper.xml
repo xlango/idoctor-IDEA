@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.idoctor.dao.UserMapper">
+	<resultMap id="user" type="com.idoctor.pojo.User">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="password" property="password"
+			jdbcType="VARCHAR" />
+		<result column="age" property="age" jdbcType="INTEGER" />
+		<result column="birthday" property="birthday"
+			jdbcType="VARCHAR" />
+		<result column="descation" property="descation"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 查询所有用户信息 -->
+	<select id="findAll" resultType="com.idoctor.pojo.User"
+		parameterType="com.idoctor.pojo.User">
+		select * from tb_user
+	</select>
+
+	<!-- 根据条件查询用户信息 -->
+	<select id="findByIf" resultType="com.idoctor.pojo.User"
+		parameterType="com.idoctor.pojo.User">
+		select * from tb_user
+		<!-- (where标签自动去掉满足条件的第一个and) -->
+		<where>
+			<if test="id!=null">
+				id=#{id}
+			</if>
+			<if test="name!= null">
+				and name=#{name}
+			</if>
+			<if test="age!= null">
+				and age=#{age}
+			</if>
+			<if test="birthday!=null">
+				and birthday=#{birthday}
+			</if>
+			<if test="descation!=null">
+				and descation=#{descation}
+			</if>
+		</where>
+	</select>
+
+	<!-- 增加用户 -->
+	<insert id="add" parameterType="com.idoctor.pojo.User">
+		insert into tb_user
+		(name,password,age,birthday,descation) values
+		(#{name},#{password},#{age},#{birthday},#{descation})
+	</insert>
+	<!-- 删除用户 -->
+	<delete id="delete" parameterType="com.idoctor.pojo.User">
+		delete from tb_user where id =
+		#{id}
+	</delete>
+	<!-- 修改用户 -->
+	<update id="update" parameterType="com.idoctor.pojo.User">
+		update tb_user set name =
+		#{name}, password = #{password}, age = #{age},
+		birthday =
+		#{birthday},descation=#{descation} where id = #{id}
+	</update>
+
+	<!-- 批量插入 -->
+	<insert id="addList" parameterType="list">
+		replace into tb_user (name,password,age,birthday,descation) values
+		<foreach collection="list" item="it" separator=",">
+			(#{it.name},#{it.password},#{it.age},#{it.birthday},#{it.descation})
+		</foreach>
+	</insert>
+
+	<!-- 批量删除 -->
+	<!-- 参数说明 -->
+	<!-- tb_user : 表名 id : 字段名 collection:表示类型,这里参数是数组,就写成array,如果是集合,就写成list 
+		item : 是一个变量名,自己随便起名 open表示左括号,separator是逗号,close是右括号 -->
+	<delete id="deleteList">
+		delete from tb_user where
+		<foreach item="ids" collection="array" open="id in ("
+			separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+
+	<!-- 批量更新 -->
+	<update id="updateList">
+        update tb_user set
+        name =
+        <foreach collection="list" item="it" index="index"
+            separator=" " open="case id" close="end">
+            when #{it.id} then
+            #{it.name}
+        </foreach>
+        ,password =
+        <foreach collection="list" item="it" index="index"
+            separator=" " open="case id" close="end">
+            when #{it.id} then
+            #{it.password}
+        </foreach>        
+        ,age =
+        <foreach collection="list" item="it" index="index"
+            separator=" " open="case id" close="end">
+            when #{it.id} then #{it.age}
+        </foreach>
+        ,birthday =
+        <foreach collection="list" item="it" index="index"
+            separator=" " open="case id" close="end">
+            when #{it.id} then #{it.birthday}
+        </foreach>
+        ,descation =
+        <foreach collection="list" item="it" index="index"
+            separator=" " open="case id" close="end">
+            when #{it.id} then #{it.descation}
+        </foreach>
+        where id in
+        <foreach collection="list" item="it" index="index" 
+            separator="," open="(" close=")">
+            #{it.id}
+        </foreach>
+    </update>
+</mapper>

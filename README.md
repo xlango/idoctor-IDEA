@@ -25,4 +25,32 @@
   (1)用户在服务商授权页完成授权，获得code <br>
   (2)第三方应用取得code后访问服务商应用，获得access token <br>
   (3)第三方应用以access token为凭证到服务商处获取资源 <br>
-8.shiro认证和授权管理
+8.shiro认证和授权管理<br>
+  (1)shiro核心：Subject、SecurityManager、Realm（类似一个dao）  <br>
+  (2)依赖jar包：<br>
+    ---shiro-spring  <br>
+    ---shiro-web     <br>
+    ---aspectjweaver（注解）  <br>
+  (3)Realm   <br>
+    ---使用IniReam，配置文件：xxx.ini配置相关认证授权信息  <br>
+    ---JdbcRealm结合数据库认证授权  <br>
+    ---自定义Realm   <br>
+  (4)构建SecurityManager环境    <br>
+  (5)整合到Spring，核心配置文件注入对象：   <br>
+       <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">  <br>
+       		<property name="realm" ref="realm"></property>    <br>
+       </bean>   <br>
+       <bean id="realm" class="com.idoctor.realm.MyRealm">   <br>
+       		<property name="credentialsMatcher" ref="credentialsMatcher"/>   <br>
+       </bean>   <br>
+       <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher"> <br>
+       		<property name="hashAlgorithmName" value="md5"></property>  <br>
+       		<property name="hashIterations" value="1"></property>  <br>
+       </bean>  <br>
+  (6)Subjec提交认证请求  <br>
+     ---认证方法登录login()、logout()  <br>
+     ---角色  <br>
+     ---授权  <br>
+  (7)注解实现：  <br>
+     ---@RequiresRoles("admin")  <br>
+     ---@RequiresPermissions("user:add")    <br>

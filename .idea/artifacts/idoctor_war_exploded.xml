@@ -77,6 +77,7 @@
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-config-ogdl:1.4.0" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-event:1.4.0" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-web:1.4.0" />
+          <element id="library" level="project" name="Maven: org.aspectj:aspectjweaver:1.8.13" />
         </element>
       </element>
       <element id="directory" name="META-INF">

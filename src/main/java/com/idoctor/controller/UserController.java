@@ -65,13 +65,6 @@ public class UserController {
 	@RequestMapping("/add")
 	@ApiOperation(value = "添加用户", httpMethod = "POST", notes = "添加用户")
 	public JSONResult add(User user) {
-/*		User user=new User();
-		user.setName("222");
-		user.setPassword("222");
-		user.setAge(22);
-		user.setBirthday("2018-01-01 00:00:00");
-		user.setDescation("222");*/
-		
 		userService.add(user);
 		return JSONResult.ok();
 	}
@@ -79,14 +72,6 @@ public class UserController {
 	@RequestMapping("/update")
 	@ApiOperation(value = "更新用户", httpMethod = "POST", notes = "更新用户")
 	public JSONResult update(User user){
-		/*User user=new User();
-		user.setId(2);
-		user.setName("2223");
-		user.setPassword("2223");
-		user.setAge(22);
-		user.setBirthday("2018-02-02 00:00:00");
-		user.setDescation("2223");*/
-		
 		userService.update(user);
 		return JSONResult.ok();
 	}
@@ -188,7 +173,6 @@ public class UserController {
 		user1.setId(18);
 		user1.setName("1112099");
 		user1.setPassword("1112099");
-		user1.setAge(22);
 		user1.setBirthday("2018-02-02 00:00:00");
 		user1.setDescation("1112099");
 		
@@ -196,7 +180,6 @@ public class UserController {
 		user2.setId(17);
 		user2.setName("1112199");
 		user2.setPassword("1112199");
-		user2.setAge(22);
 		user2.setBirthday("2018-02-02 00:00:00");
 		user2.setDescation("1112199");
 		
@@ -204,7 +187,6 @@ public class UserController {
 		user3.setId(16);
 		user3.setName("1112299");
 		user3.setPassword("1112299");
-		user3.setAge(22);
 		user3.setBirthday("2018-02-02 00:00:00");
 		user3.setDescation("1112299");
 		

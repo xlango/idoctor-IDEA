@@ -23,19 +23,20 @@ public class LoginController {
         UsernamePasswordToken token=new UsernamePasswordToken(user.getName(),user.getPassword());
 
         try {
+            token.setRememberMe(user.isRememberMe());
             subject.login(token);
         } catch (AuthenticationException e) {
             return e.getMessage();
         }
 
-        if (subject.hasRole("admin")){
-            return "有admin权限";
-        }
-        return "无admin权限";
+        if (subject.hasRole("1")){
+            return "病人登录";
+        }else if (subject.hasRole("2")){
+            return "医生登录";
+        }else return "管理员登录";
     }
 
     @RequiresRoles("admin")
-    //@RequiresPermissions("user:add")
     @RequestMapping(value = "/testRole",method = RequestMethod.GET)
     public String testRole(){
         return "testRole success";
@@ -45,5 +46,11 @@ public class LoginController {
     @RequestMapping(value = "/testRole1",method = RequestMethod.GET)
     public String testRole1(){
         return "testRole1 success";
+    }
+
+    @RequiresPermissions("user:add")
+    @RequestMapping(value = "/testperm",method = RequestMethod.GET)
+    public String testperm(){
+        return "testperm success";
     }
 }

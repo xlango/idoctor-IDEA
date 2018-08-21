@@ -12,23 +12,36 @@ public class User implements Serializable {
 	
 	private int id;
 	private String name;
-	
+	private String username;
 	@JsonIgnore
 	private String password;
-	private Integer age;
+	private String phone;
 	@JsonFormat(pattern="yyyy-MM-dd hh:mm:ss a", locale="zh", timezone="GMT+8")
 	private String  birthday;
-	
+
 	@JsonInclude(Include.NON_NULL)
 	private String descation;
+
+
+
+	private boolean rememberMe;
+
 
 	public User(){}
     public User(int id, String userName, String password) {
     	this.id=id;
-    	this.name=userName;
+    	this.username=userName;
     	this.password=password;
     }
 
+
+	public boolean isRememberMe() {
+		return rememberMe;
+	}
+
+	public void setRememberMe(boolean rememberMe) {
+		this.rememberMe = rememberMe;
+	}
     public int getId() {
 		return id;
 	}
@@ -41,17 +54,23 @@ public class User implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Integer getAge() {
-		return age;
+	public String getUsername() {
+		return username;
 	}
-	public void setAge(Integer age) {
-		this.age = age;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getPassword() {
 		return password;
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	public String getBirthday() {
 		return birthday;
@@ -68,7 +87,7 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", password=" + password
-                + ", age=" + age  + ", birthday=" + birthday+ "]";
+                + ", username=" + username+ ", phone=" + phone  + ", birthday=" + birthday+ "]";
 	}
 
 	

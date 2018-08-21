@@ -28,9 +28,9 @@ public interface UserMapper {
 	
 	void updateList(List<User> userList);
 
-	@Select("select username,password from users where username=#{userName}")
+	@Select("select username,password from user where username=#{userName}")
     User getPasswordByUserName(String userName);
 
-	@Select("select role_name from user_roles where username=#{userName}")
+	@Select("select roleid from user where username=#{userName}")
 	List<String> getRolesByUserName(String userName);
 }

@@ -78,11 +78,11 @@ public class MyRealm extends AuthorizingRealm {
         Set<String> roles=getRolesByUserName(userName);
 
         //通过用户获取角色数据
-        Set<String> permissions=getPermissionsByUserName(userName);
+        //Set<String> permissions=getPermissionsByUserName(userName);
 
         SimpleAuthorizationInfo simpleAuthorizationInfo=new SimpleAuthorizationInfo();
         simpleAuthorizationInfo.setRoles(roles);
-        simpleAuthorizationInfo.setStringPermissions(permissions);
+        //simpleAuthorizationInfo.setStringPermissions(permissions);
 
         return simpleAuthorizationInfo;
     }
@@ -105,6 +105,7 @@ public class MyRealm extends AuthorizingRealm {
      * @return
      */
     private Set<String> getRolesByUserName(String userName) {
+        System.out.println("从数据库中取数据");
         List<String> list=userMapper.getRolesByUserName(userName);
         Set<String> sets=new HashSet<>(list);
 
@@ -112,7 +113,7 @@ public class MyRealm extends AuthorizingRealm {
     }
 
     public static void main(String[] args) {
-        Md5Hash md5Hash=new Md5Hash("123456","xx");
+        Md5Hash md5Hash=new Md5Hash("123456","333333");
         System.out.println(md5Hash);
     }
 }

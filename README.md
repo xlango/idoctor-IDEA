@@ -54,3 +54,13 @@
   (7)注解实现：  <br>
      ---@RequiresRoles("admin")  <br>
      ---@RequiresPermissions("user:add")    <br>
+  (8)Shiro会话管理
+     ---SessionManager、SessionDAO
+     ---Redis实现Session共享
+     ---Redis是吸纳Session共享存在的问题
+  (9)缓存管理（缓存角色数据和授权的）
+     ---CacheManager、Cache
+     ---Redis实现CacheManager
+  (10)shiro实现自动登录
+     ---
+     

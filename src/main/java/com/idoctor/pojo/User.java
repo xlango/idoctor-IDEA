@@ -24,6 +24,8 @@ public class User implements Serializable {
 
 
 
+	private int roleid;//角色id
+
 	private boolean rememberMe;
 
 
@@ -77,6 +79,12 @@ public class User implements Serializable {
 	}
 	public void setBirthday(String birthday) {
 		this.birthday = birthday;
+	}
+	public int getRoleid() {
+		return roleid;
+	}
+	public void setRoleid(int roleid) {
+		this.roleid = roleid;
 	}
 	public String getDescation() {
 		return descation;

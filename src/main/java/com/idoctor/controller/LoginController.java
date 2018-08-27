@@ -1,5 +1,6 @@
 package com.idoctor.controller;
 
+import com.idoctor.pojo.JSONResult;
 import com.idoctor.pojo.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -15,25 +16,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/login")
 public class LoginController {
 
-    @RequestMapping(value = "/subLogin",method = RequestMethod.POST
-    ,produces="text/html;charset=UTF-8")
-    public String subLogin(User user){
-        System.out.println(user.getName()+" : "+user.getPassword());
+    @RequestMapping(value = "/subLogin",method = RequestMethod.POST) //,produces="text/html;charset=UTF-8"
+    public JSONResult subLogin(User user){
+        System.out.println(user.getUsername()+" : "+user.getPassword());
         Subject subject= SecurityUtils.getSubject();
-        UsernamePasswordToken token=new UsernamePasswordToken(user.getName(),user.getPassword());
+        UsernamePasswordToken token=new UsernamePasswordToken(user.getUsername(),user.getPassword());
 
         try {
+            //自动登录
             token.setRememberMe(user.isRememberMe());
             subject.login(token);
         } catch (AuthenticationException e) {
-            return e.getMessage();
+            return JSONResult.errorMsg(e.getMessage());
         }
 
         if (subject.hasRole("1")){
-            return "病人登录";
+            return JSONResult.ok("patient");
         }else if (subject.hasRole("2")){
-            return "医生登录";
-        }else return "管理员登录";
+            return JSONResult.ok("doctor");
+        }else return JSONResult.ok("admin");
     }
 
     @RequiresRoles("admin")

@@ -62,5 +62,5 @@
      ---CacheManager、Cache
      ---Redis实现CacheManager
   (10)shiro实现自动登录
-     ---
+     ---RemeberMe
      
